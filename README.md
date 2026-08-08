@@ -250,11 +250,12 @@ find . -type f -name '*.sh' -print0 | xargs -0 -n1 bash -n
 
 真机测试顺序必须是：只读枚举 → dry-run/协议 smoke → policy server 常驻检查 → CAN 只读状态 → 低幅度单步动作 → 单 episode → 多 episode。不要从“测试通过”直接推导为“可以无人值守”。
 
+日志轮转、统一健康检查和有人见证的故障退出验收见 `docs/OPERATIONS.md`。这些工具只读或旁路运行，不改变训练与动作链。
+
 ## 已知限制
 
-- 2026-08 更换腕部 D405 后观察到明显过曝/域偏移：旧图均值约 120、饱和像素近 0；新异常 episode 均值约 204–214、饱和像素约 32%–56%。这会让白色目标消失、π0.5 小幅抖动，并把 phase 概率压到约 0.008，导致 Actor 不进入。先修相机曝光与域一致性，再继续准入数据。
-- ResNet 验证集来自旧相机分布；97.3% held-out accuracy 不代表更换相机后的可靠性。
-- systemd 文件位于 `deploy/systemd/5090-snapshot/`，是成功主机的精确路径快照，不是通用安装器。
+- 2026-08 更换腕部 D405 后出现的曝光/域偏移已在现场适配中解决；以后再次更换相机时仍需重新执行曝光、视角和 phase-gate 分布验收。
+- `deploy/systemd/5090-snapshot/` 是成功主机的精确路径快照；可移植的健康检查与日志轮转 unit 位于 `deploy/systemd/portable/`。
 - 仓库不包含 RLT 论文、第三方 SDK 源码、模型权重或真实数据。
 
 ## 许可证与来源

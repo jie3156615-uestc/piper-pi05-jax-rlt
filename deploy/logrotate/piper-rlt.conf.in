@@ -1,0 +1,13 @@
+@HOME@/piper_jax_inference_v1/logs/*.log
+@HOME@/gripper_close_v3_staging_20260727/logs/*.log
+@HOME@/rlt_online_sessions/*/.online_rlt*/learner/*.log {
+    daily
+    size 100M
+    rotate 14
+    missingok
+    notifempty
+    compress
+    delaycompress
+    dateext
+    copytruncate
+}

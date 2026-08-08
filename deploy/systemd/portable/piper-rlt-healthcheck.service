@@ -1,0 +1,8 @@
+[Unit]
+Description=Read-only Piper RLT operational health check
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/piper_jax_inference_v1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 %h/piper_jax_inference_v1/scripts/ops/piper_rlt_healthcheck.py --profile rlt --output %h/.local/state/piper-rlt/health-latest.json

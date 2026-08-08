@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily Piper RLT log rotation
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=10min
+Persistent=true
+Unit=piper-rlt-logrotate.service
+
+[Install]
+WantedBy=timers.target

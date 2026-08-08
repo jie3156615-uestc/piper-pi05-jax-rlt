@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Piper RLT health check every minute
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=5s
+Persistent=true
+Unit=piper-rlt-healthcheck.service
+
+[Install]
+WantedBy=timers.target

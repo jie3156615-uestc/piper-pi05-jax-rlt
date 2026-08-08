@@ -1,0 +1,7 @@
+[Unit]
+Description=Rotate Piper/OpenPI/RLT user logs
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/mkdir -p %h/.local/state/piper-rlt
+ExecStart=/usr/sbin/logrotate --state %h/.local/state/piper-rlt/logrotate.state %h/.config/piper-rlt/logrotate.conf

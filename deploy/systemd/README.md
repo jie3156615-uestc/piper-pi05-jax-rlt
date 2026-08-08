@@ -12,3 +12,5 @@
 6. 确认纯推理与 RLT 不会同时拥有同名 Piper ROS controller，再逐个启动其余服务。
 
 `run_rlt_lineage_gripper_close_v3_online.sh` 会根据当前 lineage 动态生成 gripper-v3 shadow unit 的关键环境，因此在线训练应优先通过受保护的 launcher 启动。
+
+`portable/` 包含不改变控制链的只读健康检查和用户级日志轮转 unit。安装方法、退出码和故障验收流程见 `docs/OPERATIONS.md`。日志轮转 timer 默认启用；健康检查 timer 仅在硬件长期在线时启用。
