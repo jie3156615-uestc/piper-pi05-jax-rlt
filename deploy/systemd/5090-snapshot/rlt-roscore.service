@@ -1,0 +1,13 @@
+[Unit]
+Description=ROS master for Piper JAX/RLT inference mode
+
+[Service]
+Type=simple
+Environment=ROS_MASTER_URI=http://localhost:11311
+ExecStart=/bin/bash -lc 'source /opt/ros/noetic/setup.bash; exec roscore'
+Restart=on-failure
+RestartSec=2
+KillMode=control-group
+
+[Install]
+WantedBy=default.target

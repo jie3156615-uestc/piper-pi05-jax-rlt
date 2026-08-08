@@ -1,0 +1,41 @@
+{
+  "format": "openpi_real_rlt_jax_learner",
+  "version": 3,
+  "update_step": 821,
+  "snapshot_date": "2026-08-08",
+  "lineage": "greenblock_rlt_fresh_v3_20260729",
+  "lineage_mode": "persistent_gripper_v3_fresh_zero",
+  "trained_episode_count": 119,
+  "train_transition_count": 821,
+  "last_update_steps": 5,
+  "config": {
+    "state_dim": 7,
+    "action_dim": 7,
+    "action_horizon": 50,
+    "chunk_length": 10,
+    "chunk_stride": 10,
+    "n_step": 10,
+    "batch_size": 256,
+    "utd": 1.0,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0003,
+    "gamma": 0.99,
+    "tau": 0.005,
+    "beta_bc": 20.0,
+    "beta_human_bc": 0.0,
+    "beta_human_gripper_bc": 1.0,
+    "actor_residual_parameterization": "rank1_bump",
+    "gripper_residual_mode": "close_only_persistent_v1"
+  },
+  "fingerprints": {
+    "actor_model_action_schema": "piper_joint_delta_v5_c10_n10_stride10_behavior_ref50_rank1_joint_r005_d1_0015_d2_001_cone15_gripper_close_knot_r005",
+    "execution_action_schema": "piper_joint_delta_v5_c10_n10_stride10_behavior_ref50_persistent_filtered_actual_r005_d1_0015_d2_001_cone15_gripper_close_assist_r005_d1_0005_d2_0003_boundary0005",
+    "projection_profile": "rank1_joint_v1_r005_d1_0015_d2_001_cone15_scale33_min020_gripper_close_knot_r005",
+    "governor": "persistent_governor_v3_joint_r005_d1_0015_d2_001_cone15_boundary060_gripper_close_r005_d1_0005_d2_0003_boundary0005",
+    "base_checkpoint": "full20k_step20000_metadata_sha256_14d9cac129ec7ce91f2e5aab3f5bfac06172c8fb70709f01850fb8e8215870e5",
+    "rl_token": "2f2e1e6bbcae8f08217ec7ba0b88088bfa44627be495035319deb84e06052b49",
+    "phase_classifier": "8c5b443edd3f399529680ef5e4c5dffcdee4af2ae2f224f6da4152237c9a50dc",
+    "replay_sha256": "0f3d4b420f9d9a1f2bc2bdb7a258e464aab3b939b00e048beaa62ee03e94a381"
+  },
+  "weights_and_replay_in_repository": false
+}

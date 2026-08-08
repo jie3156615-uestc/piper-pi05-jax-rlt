@@ -1,0 +1,36 @@
+<launch>
+  <!--
+    RLT-safe variant of pika_remote_piper/launch/teleop_rand_single_piper.launch.
+
+    Difference from the original:
+      - Piper control input is remapped to /rlt/selected_joint_command through
+        rlt_takeover_single_piper.launch.
+      - Pika teleop still publishes human commands to /joint_states_gripper.
+      - rlt_takeover_rollout.py is the only process that should publish the
+        selected command topic in publish mode.
+  -->
+
+  <arg name="python_bin" default="$(env HOME)/miniforge3/envs/pika/bin/python" />
+  <arg name="extra_pythonpath" default="$(env HOME)/piper_jax_inference_v1/pika_overrides:$(env HOME)/pika_ros/install/share/pika_remote_piper/scripts:$(env HOME)/pika_ros/install/share/piper/scripts:/opt/ros/noetic/lib/python3/dist-packages:$(optenv PYTHONPATH)" />
+
+  <include file="$(env HOME)/piper_jax_inference_v1/ros/rlt_takeover_single_piper.launch">
+    <arg name="auto_enable" value="false" />
+    <arg name="python_bin" value="$(arg python_bin)" />
+    <arg name="extra_pythonpath" value="$(arg extra_pythonpath)" />
+  </include>
+
+  <node name="piper_FK" pkg="pika_remote_piper" type="piper_FK.py" output="screen" launch-prefix="$(arg python_bin)">
+    <env name="PYTHONPATH" value="$(arg extra_pythonpath)" />
+    <rosparam command="load" file="$(find pika_remote_piper)/config/piper_rand_params.yaml" />
+  </node>
+
+  <node name="piper_IK" pkg="pika_remote_piper" type="piper_IK.py" output="screen" launch-prefix="$(arg python_bin)">
+    <env name="PYTHONPATH" value="$(arg extra_pythonpath)" />
+    <env name="RLT_DISABLE_PIPER_IK_SELF_COLLISION" value="1" />
+    <rosparam command="load" file="$(find pika_remote_piper)/config/piper_rand_params.yaml" />
+  </node>
+
+  <node name="teleop_piper" pkg="pika_remote_piper" type="teleop_piper_publish.py" output="screen" launch-prefix="$(arg python_bin)">
+    <env name="PYTHONPATH" value="$(arg extra_pythonpath)" />
+  </node>
+</launch>

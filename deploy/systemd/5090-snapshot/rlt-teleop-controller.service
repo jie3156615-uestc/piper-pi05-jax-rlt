@@ -1,0 +1,16 @@
+[Unit]
+Description=Official Piper ROS controller and Pika teleop for JAX/RLT
+Requires=rlt-roscore.service
+After=rlt-roscore.service rlt-takeover-sources.service
+
+[Service]
+Type=simple
+Environment=ROS_MASTER_URI=http://localhost:11311
+ExecStart=/bin/bash -lc 'source "$HOME/pika_ros/install/setup.bash"; exec roslaunch --wait "$HOME/piper_jax_inference_v1/ros/rlt_teleop_rand_single_piper.launch"'
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+KillMode=control-group
+
+[Install]
+WantedBy=default.target

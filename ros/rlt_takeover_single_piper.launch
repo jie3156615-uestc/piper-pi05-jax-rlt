@@ -1,0 +1,22 @@
+<launch>
+  <!-- RLT takeover launch for the single Piper control node.
+       This mirrors piper/launch/start_single_piper.launch, except the command
+       input is remapped to /rlt/selected_joint_command so the mux is the only
+       source that reaches the Piper CAN-owning node. -->
+  <arg name="can_port" default="can0" />
+  <arg name="auto_enable" default="true" />
+  <arg name="gripper_val_mutiple" default="1" />
+  <arg name="selected_command_topic" default="/rlt/selected_joint_command" />
+  <arg name="python_bin" default="$(env HOME)/miniforge3/envs/pika/bin/python" />
+  <arg name="extra_pythonpath" default="$(env HOME)/pika_ros/install/share/pika_remote_piper/scripts:$(env HOME)/pika_ros/install/share/piper/scripts:/opt/ros/noetic/lib/python3/dist-packages:$(optenv PYTHONPATH)" />
+
+  <node name="piper_ctrl_single_node" pkg="piper" type="piper_ctrl_single_node.py" output="screen" launch-prefix="$(arg python_bin)">
+    <env name="PYTHONPATH" value="$(arg extra_pythonpath)" />
+    <param name="can_port" value="$(arg can_port)" />
+    <param name="auto_enable" value="$(arg auto_enable)" />
+    <param name="gripper_val_mutiple" value="$(arg gripper_val_mutiple)" />
+    <param name="girpper_exist" value="true" />
+    <remap from="joint_ctrl_single" to="$(arg selected_command_topic)" />
+    <remap from="joint_states_single" to="/joint_states_single" />
+  </node>
+</launch>

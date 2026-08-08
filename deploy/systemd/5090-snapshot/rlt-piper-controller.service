@@ -1,0 +1,16 @@
+[Unit]
+Description=Piper ROS controller for pure JAX policy inference
+Requires=rlt-roscore.service
+After=rlt-roscore.service
+
+[Service]
+Type=simple
+Environment=ROS_MASTER_URI=http://localhost:11311
+ExecStart=/bin/bash -lc 'source "$HOME/pika_ros/install/setup.bash"; exec roslaunch --wait "$HOME/piper_jax_inference_v1/ros/rlt_takeover_single_piper.launch" auto_enable:=false'
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+KillMode=control-group
+
+[Install]
+WantedBy=default.target

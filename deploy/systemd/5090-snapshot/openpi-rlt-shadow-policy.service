@@ -1,0 +1,21 @@
+[Unit]
+Description=OpenPI Piper full-20k + RL Token + selected RLT Actor service
+After=network.target
+Conflicts=openpi-piper-policy.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/cwzk/openpi_jax_piper_lora_v1_20260707
+Environment=PYTHONPATH=/home/cwzk/piper_jax_inference_v1:/home/cwzk/openpi_jax_piper_lora_v1_20260707/src:/home/cwzk/openpi_jax_piper_lora_v1_20260707/packages/openpi-client/src
+Environment=XLA_PYTHON_CLIENT_PREALLOCATE=false
+Environment=JAX_COMPILATION_CACHE_DIR=/home/cwzk/piper_jax_inference_v1/jax_cache
+Environment=PIPER_RLT_SELECTED_ACTOR_FILE=/home/cwzk/openpi_rlt/online_current/selected_actor_checkpoint.txt
+ExecStart=/usr/bin/bash /home/cwzk/piper_jax_inference_v1/run_rlt_selected_policy_server.sh
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+StandardOutput=append:/home/cwzk/piper_jax_inference_v1/logs/rlt_shadow_policy_server.log
+StandardError=append:/home/cwzk/piper_jax_inference_v1/logs/rlt_shadow_policy_server.log
+
+[Install]
+WantedBy=default.target

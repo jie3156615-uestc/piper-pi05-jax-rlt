@@ -1,0 +1,15 @@
+[Unit]
+Description=Pika locator and Sense gripper sources for Piper RLT takeover
+After=default.target
+
+[Service]
+Type=simple
+Environment=ROS_MASTER_URI=http://localhost:11311
+ExecStart=/bin/bash -lc 'sense_serial="$(readlink -f /dev/serial/by-path/pci-0000:00:14.0-usb-0:1.4:1.0-port0)"; test -c "$sense_serial"; source "$HOME/pika_ros/install/setup.bash"; exec roslaunch --wait "$HOME/piper_jax_inference_v1/ros/rlt_takeover_sources.launch" sensor_serial_port:="$sense_serial"'
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+KillMode=control-group
+
+[Install]
+WantedBy=default.target

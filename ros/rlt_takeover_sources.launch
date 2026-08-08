@@ -1,0 +1,19 @@
+<launch>
+  <!--
+    Minimal Pika human takeover sources:
+      - sensor-side serial gripper/IMU node, publishing /joint_states_gripper
+      - Pika Vive locator, publishing /pika_pose
+
+    This launch intentionally does not start RealSense or RViz.
+  -->
+
+  <arg name="sensor_serial_port" default="/dev/ttyUSB50" />
+  <arg name="sensor_joint_name" default="sensor_gripper_center_joint" />
+
+  <include file="$(env HOME)/piper_jax_inference_v1/ros/rlt_sensor_gripper_serial.launch">
+    <arg name="sensor_serial_port" value="$(arg sensor_serial_port)" />
+    <arg name="sensor_joint_name" value="$(arg sensor_joint_name)" />
+  </include>
+
+  <include file="$(env HOME)/piper_jax_inference_v1/ros/rlt_pika_single_locator_no_rviz.launch" />
+</launch>

@@ -1,0 +1,28 @@
+[Unit]
+Description=OpenPI Piper policy and selected gripper-close v3 RLT Actor
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/cwzk/gripper_close_v3_staging_20260727
+Environment="PYTHONPATH=/home/cwzk/gripper_close_v3_staging_20260727:/home/cwzk/gripper_close_v3_staging_20260727/src:/home/cwzk/gripper_close_v3_staging_20260727/packages/openpi-client/src"
+Environment="XLA_PYTHON_CLIENT_PREALLOCATE=false"
+Environment="JAX_COMPILATION_CACHE_DIR=/home/cwzk/gripper_close_v3_staging_20260727/jax_cache_gripper_v3"
+Environment="PIPER_RLT_SELECTED_ACTOR_FILE=/home/cwzk/rlt_online_sessions/greenblock_rlt_fresh_v3_20260729/.online_rlt_persistent_gripper_v3_fresh/selected_actor_checkpoint.txt"
+Environment="PIPER_RLT_PROJECT_PYTHON=/home/cwzk/gripper_close_v3_staging_20260727/.venv/bin/python"
+Environment="PIPER_RLT_EXPECTED_RUNTIME=/home/cwzk/gripper_close_v3_staging_20260727"
+Environment="PIPER_RLT_EXPECTED_RAW_SCHEMA=piper_joint_delta_v5_c10_n10_stride10_behavior_ref50_rank1_joint_r005_d1_0015_d2_001_cone15_gripper_close_knot_r005"
+Environment="PIPER_RLT_EXPECTED_PROJECTION_PROFILE=rank1_joint_v1_r005_d1_0015_d2_001_cone15_scale33_min020_gripper_close_knot_r005"
+Environment="PIPER_POLICY_CONFIG=pi05_piper_greenblock_5090_jax_delta_v1"
+Environment="PIPER_POLICY_CHECKPOINT=/home/cwzk/openpi_checkpoints/pi05_piper_greenblock_5090_jax_delta_v1/piper_greenblock_5090_delta_sft_30k_20260707/20000"
+Environment="PIPER_RL_TOKEN_CHECKPOINT=/home/cwzk/openpi_rlt/rl_tokens/pi05_piper_greenblock_5090_full20k_rlt_token_v1_20260709/step_010000_encoder_only"
+Environment="PIPER_RLT_SHADOW_PORT=8001"
+ExecStart=/usr/bin/bash /home/cwzk/gripper_close_v3_staging_20260727/.gripper_close_v3_service/run_selected_policy_server.sh
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+StandardOutput=append:/home/cwzk/gripper_close_v3_staging_20260727/logs/gripper_v3_shadow_policy_server.log
+StandardError=append:/home/cwzk/gripper_close_v3_staging_20260727/logs/gripper_v3_shadow_policy_server.log
+
+[Install]
+WantedBy=default.target

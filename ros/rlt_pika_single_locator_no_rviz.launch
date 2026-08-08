@@ -1,0 +1,21 @@
+<launch>
+  <!-- Minimal Pika locator for RLT takeover. No RViz. -->
+  <arg name="dist_limit" default="0.2" />
+  <arg name="angle_limit" default="0.2" />
+  <arg name="linear_limit" default="5" />
+  <arg name="angular_limit" default="20" />
+
+  <!--
+    libsurvive's automatic floor estimate on this installation can be written
+    as roughly -20 m after lighthouse recalibration, even though the solved
+    lighthouse poses are valid.  Pika teleop uses relative pose, so pin the
+    global floor translation to zero and keep the calibrated lighthouse poses.
+  -->
+  <node name="pika_single_locator" type="pika_single_locator_node" pkg="pika_locator" output="screen"
+        args="--floor-offset 0" respawn="true" respawn_delay="2.0">
+    <param name="dist_limit" value="$(arg dist_limit)" />
+    <param name="angle_limit" value="$(arg angle_limit)" />
+    <param name="linear_limit" value="$(arg linear_limit)" />
+    <param name="angular_limit" value="$(arg angular_limit)" />
+  </node>
+</launch>

@@ -1,0 +1,36 @@
+{
+  "architecture": "resnet18",
+  "pretrained": true,
+  "input": "camera1 and camera2 resized to 320x240, concatenated to 640x240, then resized to 224x224",
+  "gate": {
+    "threshold": 0.5,
+    "consecutive_frames": 3,
+    "mode": "single_latch_until_terminal"
+  },
+  "training": {
+    "epochs": 8,
+    "batch_size": 128,
+    "lr": 0.0003,
+    "positive_frames": 1458,
+    "negative_frames": 2952,
+    "pos_weight": 2.0246913580246915,
+    "device": "cpu",
+    "epoch_loss": [0.11319568713539853, 0.03319483160161648, 0.026052064956704372, 0.024750084119960835, 0.017074602193467302, 0.01941908480865615, 0.01409987805753338, 0.006044967303394663]
+  },
+  "heldout": {
+    "episodes": 7,
+    "frames": 1293,
+    "accuracy": 0.9729311678267595,
+    "precision": 0.9615384615384616,
+    "recall": 0.9593679458239278,
+    "f1": 0.9604519774011301,
+    "false_positive_rate": 0.02,
+    "false_negative_rate": 0.040632054176072234,
+    "true_positive": 425,
+    "false_positive": 17,
+    "true_negative": 833,
+    "false_negative": 18
+  },
+  "fingerprint": "8c5b443edd3f399529680ef5e4c5dffcdee4af2ae2f224f6da4152237c9a50dc",
+  "weights_in_repository": false
+}

@@ -1,0 +1,34 @@
+{
+  "format": "jax_flax_rl_token_autoencoder_v1",
+  "step": 10000,
+  "config_name": "pi05_piper_greenblock_5090_jax_delta_v1",
+  "token_config": {
+    "embedding_dim": 2048,
+    "num_encoder_layers": 2,
+    "num_decoder_layers": 2,
+    "num_heads": 8,
+    "mlp_ratio": 4.0,
+    "dropout": 0.0,
+    "max_seq_len": 1024
+  },
+  "training": {
+    "batch_size": 4,
+    "num_train_steps": 10000,
+    "lr": 0.0001,
+    "seed": 42,
+    "num_workers": 0,
+    "save_interval": 1000,
+    "sample_num_steps": 10,
+    "cache_after": true,
+    "cache_batch_size": 8
+  },
+  "final_metrics": {
+    "loss": 0.10676918923854828,
+    "grad_norm": 0.3231828510761261,
+    "valid_tokens": 522.0,
+    "z_norm": 38.463897705078125
+  },
+  "encoder_only_format": "jax_flax_rl_token_encoder_v1",
+  "runtime_fingerprint": "2f2e1e6bbcae8f08217ec7ba0b88088bfa44627be495035319deb84e06052b49",
+  "weights_in_repository": false
+}

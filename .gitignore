@@ -1,0 +1,67 @@
+# Python / tooling
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.idea/
+.vscode/
+
+# Credentials and host-local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Model and optimizer artifacts
+checkpoints/
+openpi_checkpoints/
+openpi_rlt/
+rlt_phase_classifiers/
+*.ckpt
+*.safetensors
+*.msgpack
+*.pt
+*.pth
+*.onnx
+
+# Datasets, replay, images, video, logs and runtime state
+datasets/
+data/chunk-*/
+rlt_online_sessions/
+.online_rlt_*/
+replays/
+cache_z_rl/
+*token_cache*.jsonl*
+jax_cache*/
+reports/
+logs/
+*.log
+*.npz
+*.parquet
+*.hdf5
+*.h5
+*.bag
+*.mp4
+*.avi
+*.mkv
+*.png
+*.jpg
+*.jpeg
+
+# Generated package/build output
+build/
+dist/
+*.egg-info/
+install/
+devel/
+
+# Keep small, reviewed metadata committed
+!artifacts/metadata/*.json

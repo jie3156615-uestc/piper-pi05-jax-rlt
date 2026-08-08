@@ -1,0 +1,41 @@
+<launch>
+  <!--
+    Minimal Pika demonstrator serial source for RLT takeover.
+
+    This intentionally does not start RealSense nodes, so the RLT runner can
+    keep direct ownership of the global/wrist cameras.
+
+    It mirrors the sensor-side serial node from sensor_tools/open_sensor_gripper.launch:
+      /joint_state_info    -> /joint_states
+      /joint_state_gripper -> /joint_states_gripper
+
+    The RLT runner reads /joint_states_gripper as the human takeover command.
+  -->
+
+  <arg name="sensor_serial_port" default="/dev/ttyUSB50" />
+  <arg name="sensor_joint_name" default="sensor_gripper_center_joint" />
+  <arg name="motor_current_limit" default="1000" />
+  <arg name="motor_current_redundancy" default="500" />
+  <arg name="mit_mode" default="true" />
+  <arg name="ctrl_rate" default="50" />
+
+  <node pkg="sensor_tools" name="sensor_serial_gripper_imu" type="serial_gripper_imu" output="screen" respawn="true">
+    <param name="serial_port" value="$(arg sensor_serial_port)" />
+    <param name="joint_name" value="$(arg sensor_joint_name)" />
+    <param name="motor_current_limit" value="$(arg motor_current_limit)" />
+    <param name="motor_current_redundancy" value="$(arg motor_current_redundancy)" />
+    <param name="mit_mode" value="$(arg mit_mode)" />
+    <param name="ctrl_rate" value="$(arg ctrl_rate)" />
+    <remap from="/imu/data" to="/sensor/imu/data" />
+    <remap from="/gripper/data" to="/sensor/gripper/data" />
+    <remap from="/gripper/ctrl" to="/sensor/gripper/ctrl" />
+    <remap from="/gripper/joint_state" to="/sensor/gripper/joint_state" />
+    <remap from="/gripper/joint_state_ctrl" to="/sensor/gripper/joint_state_ctrl" />
+    <remap from="/joint_state_info" to="/joint_states" />
+    <remap from="/joint_state_gripper" to="/joint_states_gripper" />
+    <remap from="/data_capture_status" to="/data_tools_dataCapture/status" />
+    <remap from="/teleop_status" to="/teleop_status" />
+    <remap from="/localization_status" to="/pika_localization_status" />
+    <remap from="/arm_control_status" to="/arm_control_status" />
+  </node>
+</launch>

@@ -1,0 +1,17 @@
+[Unit]
+Description=Persistent Piper native SDK command bridge for gripper-close v3 RLT
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/cwzk/gripper_close_v3_staging_20260727
+Environment="PYTHONPATH=/home/cwzk/gripper_close_v3_staging_20260727:/home/cwzk/gripper_close_v3_staging_20260727/src:/home/cwzk/gripper_close_v3_staging_20260727/packages/openpi-client/src:/home/cwzk/pika_ros/install/lib/python3/dist-packages:/opt/ros/noetic/lib/python3/dist-packages"
+ExecStart=/home/cwzk/venvs/pika/bin/python -u -m piper_runtime.native_sdk_command_bridge
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+StandardOutput=append:/home/cwzk/gripper_close_v3_staging_20260727/logs/gripper_v3_native_sdk_command_bridge.log
+StandardError=append:/home/cwzk/gripper_close_v3_staging_20260727/logs/gripper_v3_native_sdk_command_bridge.log
+
+[Install]
+WantedBy=default.target
